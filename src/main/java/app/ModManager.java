@@ -33,7 +33,7 @@ public class ModManager extends Application
 
 
         Scene scene = new Scene(sceneManager.getDisplayNode(), 800, 600);
-        primaryStage.setTitle("Mass Mod Manager 0.1 by MrSanchez");
+        primaryStage.setTitle("CCD Mass Mod Manager 0.1 by MrSanchez");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

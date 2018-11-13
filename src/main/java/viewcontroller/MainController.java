@@ -1,19 +1,20 @@
 package viewcontroller;
 
 import javafx.beans.Observable;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.util.Callback;
 import model.Car;
 import model.CarPool;
 
 import java.util.Iterator;
-import java.util.List;
 
 public class MainController
 {
@@ -33,7 +34,16 @@ public class MainController
     private Tab tabMain;
 
     @FXML
-    private ListView<Car> listCars;
+    private TableView<Car> tableCars;
+
+    @FXML
+    private TableColumn<Car, Boolean> colSelected;
+
+    @FXML
+    private TableColumn<Car, String> colID;
+
+    @FXML
+    private TableColumn<Car, String> colDisplayName;
 
     @FXML
     private ImageView imageCar;
@@ -54,21 +64,31 @@ public class MainController
         this.carPool = carPool;
     }
 
-    private void initializeCarList() {
+    private ObservableList<Car> getCarList() {
         ObservableList<Car> cars = FXCollections.observableArrayList();
 
         Iterator<Car> it = carPool.iterator();
         while (it.hasNext()) {
             cars.add(it.next());
         }
+        return cars;
+    }
 
-        listCars.setItems(cars);
-        listCars.getSelectionModel().selectedItemProperty().addListener(this::onCarSelected);
-        listCars.getSelectionModel().select(0);
+    private void initializeCarTable() {
+        ObservableList<Car> cars = getCarList();
+
+        colSelected.setCellFactory(CheckBoxTableCell.forTableColumn(colSelected));
+        colSelected.setEditable(true);
+        colID.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getId()));
+        colDisplayName.setCellValueFactory(p -> new ReadOnlyObjectWrapper<>(p.getValue().getDisplayName()));
+
+        tableCars.setItems(cars);
+        tableCars.getSelectionModel().selectedItemProperty().addListener(this::onCarSelected);
+        tableCars.getSelectionModel().select(0);
     }
 
     private void onCarSelected(Observable observable) {
-        Car selectedCar = listCars.getSelectionModel().getSelectedItem();
+        Car selectedCar = tableCars.getSelectionModel().getSelectedItem();
         this.updateCarDetails(selectedCar);
     }
 
@@ -89,6 +109,6 @@ public class MainController
 
     @FXML
     private void initialize() {
-        initializeCarList();
+        initializeCarTable();
     }
 }
