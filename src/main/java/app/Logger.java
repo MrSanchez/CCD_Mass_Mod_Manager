@@ -10,7 +10,7 @@ public class Logger
         return uniqueInstance;
     }
 
-    public void logMessage(String msg) {
-        System.out.println(msg);
+    public void log(String msg) {
+        System.out.println("[Log] " + msg);
     }
 }
