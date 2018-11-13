@@ -73,4 +73,10 @@ public class Car
     {
         this.primaryImage = primaryImage;
     }
+
+    @Override
+    public String toString()
+    {
+        return displayName;
+    }
 }

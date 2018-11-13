@@ -3,6 +3,7 @@ package model;
 import app.Logger;
 import services.carloader.CarLoader;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class CarPool
@@ -17,5 +18,9 @@ public class CarPool
         this.cars = loader.load();
 
         Logger.getInstance().log("Loaded cars: " + cars.size());
+    }
+
+    public Iterator<Car> iterator() {
+        return cars.iterator();
     }
 }

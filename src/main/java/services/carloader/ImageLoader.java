@@ -20,14 +20,14 @@ import java.util.List;
 public class ImageLoader
 {
     public static List<Image> getAllImages(String carID) {
-        List<Image> images = new ArrayList<>();
-
         File carImageDirectory = new File(PathUtils.fromGameDir(Constants.PATH_IMAGESETS, carID));
         File[] files = carImageDirectory.listFiles();
 
+
+        List<Image> images = new ArrayList<>();
         if (files != null) {
             for (File file : files) {
-                if ((!file.isDirectory()) && (file.getAbsolutePath().endsWith(".png"))) {
+                if ((!file.isDirectory()) && (file.getAbsolutePath().toLowerCase().endsWith(".png"))) {
                     images.add(new Image(file.toURI().toString()));
                 }
             }
@@ -41,7 +41,7 @@ public class ImageLoader
 
         if (files != null) {
             for (File file : files) {
-                if ((!file.isDirectory()) && (file.getAbsolutePath().endsWith(".png"))) {
+                if ((!file.isDirectory()) && (file.getAbsolutePath().toLowerCase().endsWith(".png"))) {
                     return new Image(file.toURI().toString());
                 }
             }

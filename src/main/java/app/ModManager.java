@@ -25,12 +25,15 @@ public class ModManager extends Application
     public void start(Stage primaryStage) throws IOException
     {
         SceneManager sceneManager = SceneManager.getInstance();
-        sceneManager.displayScreen("frame.fxml", new MainController());
-        StatusManager.getInstance().displayStatus(StatusType.SUCCESS, "Application launched");
 
         CarPool carPool = new CarPool(new CarLoader());
 
+        sceneManager.displayScreen("frame.fxml", new MainController(carPool));
+        StatusManager.getInstance().displayStatus(StatusType.SUCCESS, "Application launched");
+
+
         Scene scene = new Scene(sceneManager.getDisplayNode(), 800, 600);
+        primaryStage.setTitle("Mass Mod Manager 0.1 by MrSanchez");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

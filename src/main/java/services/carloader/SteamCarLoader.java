@@ -7,6 +7,7 @@ import model.Car;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import utils.PathUtils;
+import utils.StringUtils;
 import utils.XMLUtils;
 
 import java.io.File;
@@ -47,14 +48,14 @@ public class SteamCarLoader
             Document document = XMLUtils.parseXMLDocument(carFile);
             Element carElement = (Element) document.getElementsByTagName("Car").item(0);
 
-            String carID = carElement.getAttribute("Name");
-            if(carID.isEmpty()) carID = PathUtils.removeFileExtension(carFile.getName());
 
-            String displayName = carElement.getElementsByTagName("DisplayName").item(0).getTextContent();
+            String carID = PathUtils.removeFileExtension(carFile.getName());
+            String displayName = StringUtils.trimEachLine(carElement.getElementsByTagName("DisplayName").item(0).getTextContent());
             String description = carElement.getElementsByTagName("Description").item(0).getTextContent();
+            // Get rid of duplicate display name in description
+            description = StringUtils.trimEachLine(description.substring(description.indexOf('\n', 1)+1));
 
             car = new Car(carID, displayName, description);
-
             Logger.getInstance().log(String.format("ID: %s, Name: %s", car.getId(), car.getDisplayName()));
         } catch (XMLParseException e) {
             Logger.getInstance().log(e.getMessage());
