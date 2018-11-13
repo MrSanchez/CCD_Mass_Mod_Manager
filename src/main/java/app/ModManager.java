@@ -1,10 +1,9 @@
 package app;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import viewcontroller.MainController;
 
 import java.io.IOException;
 
@@ -19,9 +18,12 @@ public class ModManager extends Application
     @Override
     public void start(Stage primaryStage) throws IOException
     {
-        FXMLLoader loader = new FXMLLoader(ModManager.class.getResource("fxml/frame.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root, 800, 600);
+        SceneManager sceneManager = SceneManager.getInstance();
+        sceneManager.displayScreen("frame.fxml", new MainController());
+        StatusManager.getInstance().displayStatus(StatusType.SUCCESS, "Application launched");
+
+
+        Scene scene = new Scene(sceneManager.getDisplayNode(), 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
