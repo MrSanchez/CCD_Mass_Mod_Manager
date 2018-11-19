@@ -10,17 +10,24 @@ public class CarPool
 {
     private List<Car> cars;
 
-    private CarLoader loader;
+    private CarLoader carLoader;
 
-    public CarPool(CarLoader loader)
-    {
-        this.loader = loader;
-        this.cars = loader.load();
+    public CarPool(CarLoader carLoader) {
+        this.carLoader = carLoader;
+        this.loadCars();
 
         Logger.getInstance().log("Loaded cars: " + cars.size());
     }
 
     public Iterator<Car> iterator() {
         return cars.iterator();
+    }
+
+    public int size() {
+        return cars.size();
+    }
+
+    public void loadCars() {
+        this.cars = carLoader.load();
     }
 }

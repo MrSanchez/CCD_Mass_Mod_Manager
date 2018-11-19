@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.PropertySheet?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="lblSelectedCount" text="0 out of 0 cars selected" />
+      <Separator prefWidth="200.0" />
+      <HBox>
+         <children>
+            <Button fx:id="btnSelectAll" mnemonicParsing="false" onAction="#onSelectAllButtonClicked" text="Select All" />
+            <Button fx:id="btnDeselectAll" mnemonicParsing="false" onAction="#onDeselectAllButtonClicked" text="Deselect All" />
+            <Button fx:id="btnInvertSelection" mnemonicParsing="false" onAction="#onInvertSelectionButtonClicked" text="Invert Selection" />
+         </children>
+      </HBox>
+      <TableView fx:id="tableCars" editable="true">
+         <columns>
+            <TableColumn fx:id="colSelected" maxWidth="-1.0" minWidth="50.0" prefWidth="-1.0" resizable="false" sortable="false" />
+            <TableColumn fx:id="colID" maxWidth="-Infinity" minWidth="200.0" prefWidth="-1.0" text="Car ID" />
+            <TableColumn fx:id="colDisplayName" maxWidth="-1.0" minWidth="200.0" prefWidth="-1.0" text="Car Name" />
+         </columns>
+      </TableView>
+      <PropertySheet fx:id="propertySheet" mode="CATEGORY" VBox.vgrow="ALWAYS" />
+   </children>
+</VBox>
